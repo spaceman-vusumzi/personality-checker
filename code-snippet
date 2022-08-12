@@ -1,0 +1,51 @@
+public class MainForm extends javax.swing.JFrame {
+
+    //create an object of the MoivePD class
+    MoviePD objFilms = null; //make it null for now
+
+    //arraylist for holding results
+    private ArrayList<MoviePD> ar_results;
+
+    private int k = 0;
+    //declare the fullname variable to receive user's full name
+    public String full_name;
+
+    //declare arraylist for years
+    private ArrayList<Integer> arYears;
+
+    /**
+     * Creates new form MainForm
+     */
+    public MainForm() {
+        initComponents();
+        //instantiate the MoviePD class object
+        objFilms = new MoviePD();
+        ar_results = new ArrayList<>();
+
+        try {
+            //open the database connection
+            objFilms.initialise();
+            //invoke the method for loading years in combobox
+            addYears();
+        } catch (DataStorageException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
+        pnlGo.requestFocus(); //focus on the form/panel
+
+        
+    }
+
+    //define a function that will load years in the combobox
+    private void addYears() {
+        arYears = new ArrayList<>();
+        for (int i = 0; i <=37; i++) {
+            arYears.add(1984 + i);
+            
+        }
+
+        for (Integer arYear : arYears) {
+            this.cboYears.addItem(arYear.toString());
+
+        }
+    }
